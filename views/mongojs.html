@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Antonio Montalvo">
+    <meta name="description" content="Using mongojs to emulate mongoDB">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+    <link rel="stylesheet" href="/css/mongo.css">
+    <title>Intro to MongoJS</title>
+</head>
+
+<body>
+    <div class="jumbotron">
+        <h1 class="display-3">mongojs, a Node.js module for MongoDB</h1>
+        <hr class="my-4">
+    </div>
+    <ul class=" nav nav-pills justify-content-end">
+        <li class="nav-item"><a class="nav-link" href="/">Introducing MongoDB</a></li>
+        <li class="nav-item"><a class="nav-link " href="/crud">CRUD in MongoDB</a></li>
+        <li class="nav-item"><a class="nav-link " href="/mongojs">MongoDB with Mongojs</a></li>
+    </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Working with MongoDB in Node,js</h2>
+                <h3>I assume that you have already installed MongoDB and that you can already do CRUD.</h3>
+                <p>Since we are using Node.js and express we must find a way to work with MongoDB. Of all the alternatives out there, we will be using mongojs.</p>
+                <h3>What is mongojs?</h3>
+                <p>A Node.js module for MongoDB, the module facilitates connecting our application with MongoDB. First you'll need to run <code>npm install mongojs --save</code>. Then in your server you want to:</p>
+                <ol>
+                    <li><code>var mongojs = require('mongojs');</code></li>
+                    <li><code>var db = mongojs(connectionString, [collections])</code></li>
+                </ol>
+                <p>The so call <b>connectionString</b> is the name of the database we are going to be connecting to and the <b>[collections]</b>, is an array of all the collections in the database you want to have access to.</p>
+                <h3>Our datablase</h3>
+                <p>So far we don't have a database. We are going to work on a school proyect named myElementarySchool. Our school is brand new and it will take only 3 students per grade from 1st to 5th grade. myElementarySchool database will have data about every student in the "student" collection and data about each grade in the "grade" collection. To keep things nice and neet I have created another file in the schooBuilder directory named school.js that we'll take care of loading the data to MongoDB. To load the data run <code>mongod</code> in terminal/bash, and in the schoolBuilder directory run <code>node school.js</code>. Here it is ALL the data in the student collection in the myElementarySchool database.</p>
+                <p>But things are never that easy, at the very last minute some parents change their mind and decide not to take their kids to our new school while others that weren't part of our first batch decide to give our school a chance in its first year and enroll at the very last minute. We have to accomodate them and to do that we need to write code to create new students, update and delete students.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>Our Students</h3>
+                <table class="table table-inverse">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Grade</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Selected Student</th>
+                        </tr>
+                    </thead>
+                    <tbody id="all-data">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>Adding new students</h3>
+            </div>
+            <div class="col-md-6">
+                <form>
+                    <div class="form-group">
+                        <label for="new-student-first-name">First Name</label>
+                        <input type="text" class="form-control" id="new-student-first-name" placeholder="Enter first name">
+                    </div>
+                    <div class="form-group">
+                        <label for="new-student-last-name">Last Name</label>
+                        <input type="text" class="form-control" id="new-student-last-name" placeholder="Enter last name">
+                    </div>
+                    <div class="form-group">
+                        <label for="gradeSelection">Select Grade</label>
+                        <select class="form-control" id="gradeSelection">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                    <button id="add-new-student" type="submit" class="btn btn-success">Add New Student</button>
+                </form>
+            </div>
+            <div class="col-lg-12">
+                <h3 id="update-student">Update or <span>Delete</span> Information</h3>
+                <p>To update or delete a student first select the student from the table then confirm here.</p>
+            </div>
+            <div class="col-md-6">
+                <form>
+                    <div class="form-group">
+                        <label for="update-first-name">First name</label>
+                        <input type="text" class="form-control" id="update-first-name" placeholder="Enter first name">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-last-name">Last name</label>
+                        <input type="text" class="form-control" id="update-last-name" placeholder="Enter last name">
+                    </div>
+                    <div class="form-group">
+                        <label for="gradeSelection">Select Grade</label>
+                        <select class="form-control" id="update-grade">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="student-ID">Student ID</label>
+                        <input type="text" class="form-control" id="student-ID" placeholder="Enter last name">
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <button id="find-one-and-update" type="submit" class="btn btn-warning">Update Student</button>
+                        </div>
+                        <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-5">
+                            <button id="find-one-and-delete" type="submit" class="btn btn-danger">Delete Student!</button>
+                        </div>
+                    </div>
+                </form>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    <!-- The script @ /js/app.s/contains the ajax call to the server to load the data from MongoDB -->
+    <script src="/js/app.js"></script>
+</body>
+
+</html>

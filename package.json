@@ -1,0 +1,16 @@
+{
+  "name": "intro-to-mongodb",
+  "version": "1.0.0",
+  "description": "intro-to-mongodb",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Antonio Montalvo",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "mongojs": "^2.4.1"
+  }
+}

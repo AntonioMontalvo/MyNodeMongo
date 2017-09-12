@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Antonio Montalvo">
+    <meta name="description" content="Introduction to MongoDB">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <script src="/js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="/css/mongo.css">
+    <title>Intro to MongoDB</title>
+</head>
+
+<body>
+    <div class="jumbotron">
+        <h1 class="display-3">MongoDB</h1>
+        <hr class="my-4">
+    </div>
+    <ul class=" nav nav-pills justify-content-end">
+        <li class="nav-item"><a class="nav-link" href="/">Introducing MongoDB</a></li>
+        <li class="nav-item"><a class="nav-link " href="/crud">CRUD in MongoDB</a></li>
+        <li class="nav-item"><a class="nav-link " href="/mongojs">MongoDB with Mongojs</a></li>
+    </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>What is MongoDB?</h2>
+                <p>MongoDB is an open-source, document-oriented database. It falls into the NoSQL datababases category which means that it does not follow a Relational Database model like MySql. Relational databases stored date in tables. The relationships between the elements in tables is via primary and foreing keys. MongoDB stores data records as BSON documents. BSON is a binary representation of JSON documents, though it contains more data types than JSON. </p>
+                <h2>But how is the data stored?</h2>
+                <p>MongoDB storage is based on Databases. Each database contains multiple <b>collections</b> and each collection contains a record in the form of a <b>BSON document</b>. So again, MongoDB stores BSON documents, i.e. data records, in collections; the collections in databases.</p>
+                <h3>Databases</h3>
+                <p>In MongoDB, databases hold collections of documents. If a database does not exist, MongoDB creates the database when you first store data for that database. Database names are case insensitive. For MongoDB deployments running <b>on Windows systems</b>, database names cannot contain any of the following characters: <code> /\. "$* > <| :? </code>. Also database names cannot contain the null character. For MongoDB deployments running <b>on Unix and Linux systems</b>, database names cannot contain any of the following characters:<code> /\. " $ </code>. Also database names cannot contain the null character. Length of Database Names Database names cannot be empty and must have fewer than 64 characters.</p>
+                <h3>Collections</h3>
+                <p>MongoDB stores documents in collections. Collections are analogous to tables in relational databases. If a collection does not exist, MongoDB creates the collection when you first store data for that collection. Naming restrictions: Collection names should begin with an underscore or a letter character, and cannot: contain the $. be an empty string (e.g. ""). contain the null character. begin with the system. prefix. (Reserved for internal use.)
+                </p>
+                <h3>About Documents</h3>
+                <p>MongoDB stores data records as BSON documents. BSON is a binary representation of JSON documents, though it contains more data types than JSON.</p>
+                <img src="/images/document.png">
+                <p>The value of a field can be any of the BSON data types, including other documents, arrays, and arrays of documents. </p>
+                <h2>Using your terminal</h2>
+                <p>Once MongoDB is installed we are ready to store data. However there are a few steps we have to take first</p>
+                <ul>
+                    <li>Open a terminal or bash window and run <code>mongod</code> to start the server</li>
+                    <li>Open a second window and run <code>mongo</code> for the REPL. Notice there is no "d" after mongo</li>
+                </ul>
+                <h2>Using a GUI or command-line to develop?</h2>
+                <p>All roads lead to Rome. But something like Robo 3T goes a long way when you are just starting. It is visualy pleasant and it comes with built-in auto-completion and other perks. <a href="https://robomongo.org/download" target="_blank">Download it here!</a></p>
+                <p>Now that you are up and running switch to <a href="/crud">CRUD in MongoDB</a>.</p>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+</body>
+
+</html>
