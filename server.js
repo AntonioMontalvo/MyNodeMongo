@@ -24,7 +24,7 @@ var collections = ["student"];
 //finally establish the connection locally
 //var db = mongojs(databaseURI, collections);  <=uncomment me
 
-var db = mongojs(databaseURL collections);
+var db = mongojs(databaseURL, collections);
 
 // this makes sure that any errors are logged if mongodb runs into an issue
 db.on('error', function(err) {
