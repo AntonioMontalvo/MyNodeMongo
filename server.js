@@ -15,11 +15,16 @@ var bodyParser = require('body-parser');
 var mongojs = require('mongojs');
 
 //if we are connecting to our local database, since we have to manually connect to MongoDb, (the connectionString represents the URI for defining connections between applications and MongoDB instances.) is just the name of the database. The [collections is an array with the collections in the database]
+
 var databaseURI = "myElementarySchool";
+
+var databaseURL ='mongodb://heroku_wmq2d633:jp76us6k407blulnqlnmrvq0mq@ds133814.mlab.com:33814/heroku_wmq2d633';
 var collections = ["student"];
 
-//finally establish the connection
-var db = mongojs(databaseURI, collections);
+//finally establish the connection locally
+//var db = mongojs(databaseURI, collections);  <=uncomment me
+
+var db = mongojs(databaseURL collections);
 
 // this makes sure that any errors are logged if mongodb runs into an issue
 db.on('error', function(err) {
